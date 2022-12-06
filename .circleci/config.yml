@@ -4,7 +4,7 @@ orbs:
 jobs:
   build-and-test:
     docker:
-      - image: cimg/python:3.11.0
+      - image: cimg/python:3.8.5
     steps:
       - checkout
       - python/install-packages:
@@ -26,3 +26,5 @@ workflows:
   sample:
     jobs:
       - build-and-test
+
+# VS Code Extension Version: 1.4.0
