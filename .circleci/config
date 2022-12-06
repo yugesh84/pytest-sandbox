@@ -1,0 +1,28 @@
+version: 2.1
+orbs:
+  python: circleci/python@2.1.1
+jobs:
+  build-and-test:
+    docker:
+      - image: cimg/python:3.11.0
+    steps:
+      - checkout
+      - python/install-packages:
+          pkg-manager: pip
+      - run:
+          name: Run tests
+          command: | 
+            mkdir test-results
+            pytest --collect-only -qq | cut -d ':' -f 1 | grep -e "\.py$" | circleci tests run 
+              --command="xargs pytest --junitxml=test-results/junit.xml --" 
+              --fail-fast 
+              --batch-count=3e
+              --verbose
+              --test-results-path="test-results"
+      - store_test_results:
+          path: test-results
+          
+workflows:
+  sample:
+    jobs:
+      - build-and-test
