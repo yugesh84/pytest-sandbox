@@ -6,7 +6,7 @@ def test_div_zero_exception():
     pytest.raises can assert that exceptions are raised (catching them)
     """
     with pytest.raises(ZeroDivisionError):
-        x = 1 / 0
+        x = 1 / 1
 
 
 def test_keyerror_details():
