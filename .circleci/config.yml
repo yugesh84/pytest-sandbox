@@ -25,15 +25,27 @@ jobs:
             pytest --last-failed --last-failed-no-failures none || exit 0
       - run:
           name: Run all
-          command: | 
-            pytest --last-failed --last-failed-no-failures all
+          command: |
+            if pytest --last-failed --last-failed-no-failures all ; then
+              echo 'export TESTS_PASS=true' >> $BASH_ENV
+            else
+              echo 'export TESTS_PASS=false' >> $BASH_ENV
+            fi
       - store_test_results:
           path: test-results
       - persist_to_workspace:
           root: .
           paths:
             - .
-          when: on_fail
+      - run:
+          name: exit accordingly
+          command: |
+            if TESTS_PASS=true ; then
+              exit 0
+            else
+              exit 1
+            fi
+
           
 workflows:
   sample:
