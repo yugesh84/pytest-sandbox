@@ -33,6 +33,7 @@ jobs:
           root: .
           paths:
             - .
+          when: on_fail
           
 workflows:
   sample:
