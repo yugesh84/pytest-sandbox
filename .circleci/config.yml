@@ -9,6 +9,8 @@ jobs:
       - checkout
       - python/install-packages:
           pkg-manager: pip
+      - attach_workspace:
+          at: .
       - run:
           name: list all tests
           command: | 
@@ -27,6 +29,10 @@ jobs:
             pytest --last-failed --last-failed-no-failures all
       - store_test_results:
           path: test-results
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
           
 workflows:
   sample:
