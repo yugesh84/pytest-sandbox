@@ -20,12 +20,10 @@ jobs:
       - run:
           name: Run none
           command: | 
-            mkdir test-results
             pytest --last-failed --last-failed-no-failures none || exit 0
       - run:
           name: Run all
           command: | 
-            mkdir test-results
             pytest --last-failed --last-failed-no-failures all
       - store_test_results:
           path: test-results
