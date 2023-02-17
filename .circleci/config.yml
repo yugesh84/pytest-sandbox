@@ -18,10 +18,15 @@ jobs:
           command: |
             pytest --collect-only -q | grep -e "\.py" | wc -l
       - run:
-          name: Run tests unit tests
+          name: Run none
           command: | 
             mkdir test-results
-            pytest --collect-only -q | grep -e "\.py" | circleci tests run  --command="xargs pytest --junitxml=test-results/junit.xml -v --"  --fail-fast  --batch-count=3 --verbose --test-results-path="test-results"
+            pytest --last-failed --last-failed-no-failures none
+      - run:
+          name: Run all
+          command: | 
+            mkdir test-results
+            pytest --last-failed --last-failed-no-failures all
       - store_test_results:
           path: test-results
           
