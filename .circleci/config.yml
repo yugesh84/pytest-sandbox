@@ -21,7 +21,7 @@ jobs:
           name: Run none
           command: | 
             mkdir test-results
-            pytest --last-failed --last-failed-no-failures none
+            pytest --last-failed --last-failed-no-failures none || exit 0
       - run:
           name: Run all
           command: | 
